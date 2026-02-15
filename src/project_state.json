@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "New project",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-add-a-single-configurable-source-of-truth-for-the-website-s-public-domain-site-url-so-the-domain-can-be-changed-without-editing-multiple-files-and-use-it-wherever-the-app-needs-an-absolute-domain-value-e-g-seo-share-metadata",
+      "title": "Add a single configurable source of truth for the website’s public domain (site URL) so the domain can be changed without editing multiple files, and use it wherever the app needs an absolute domain value (e.g., SEO/share metadata).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-the-frontend-for-any-hard-coded-domain-host-references-and-replace-them-with-relative-urls-or-the-new-domain-configuration-so-changing-the-domain-does-not-require-code-changes-in-multiple-components",
+      "title": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-brief-developer-documentation-readme-or-inline-comments-describing-exactly-how-to-change-the-site-domain-for-deployment-including-where-the-value-is-set-and-what-it-affects",
+      "title": "Add brief developer documentation (README or inline comments) describing exactly how to change the site domain for deployment, including where the value is set and what it affects.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Change the project domain (update deployment domain configuration)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Support changing the deployed site domain",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

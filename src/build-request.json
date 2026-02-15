@@ -1,0 +1,83 @@
+{
+  "kind": "build_request",
+  "title": "Support changing the deployed site domain",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Add a single configurable source of truth for the website’s public domain (site URL) so the domain can be changed without editing multiple files, and use it wherever the app needs an absolute domain value (e.g., SEO/share metadata).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Change domin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A developer can set the site’s public domain in one place (e.g., an env var or a small config module) without hunting for hard-coded domains.",
+        "Any absolute-URL metadata (canonical/OG URL if present or added) uses the configured domain.",
+        "When no domain is configured, the site still works correctly (e.g., falls back to current origin or uses relative URLs)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Change domin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No user-facing links or asset URLs depend on a specific hard-coded domain.",
+        "All internal navigation and static asset references continue to work after changing the configured domain."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add brief developer documentation (README or inline comments) describing exactly how to change the site domain for deployment, including where the value is set and what it affects.",
+      "target": "unknown",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Change domin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Documentation clearly states where to set the domain and how to verify it is applied.",
+        "Documentation is written in English."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/components/ui (read-only UI components).",
+    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
+    "Backend must remain a single Motoko actor in backend/main.mo; only add a migration file if persistent state changes are required."
+  ],
+  "nonGoals": [
+    "Registering or purchasing a domain name.",
+    "Configuring DNS records, SSL certificates, or external hosting/CDN services outside the codebase.",
+    "Implementing a custom backend for domain management."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

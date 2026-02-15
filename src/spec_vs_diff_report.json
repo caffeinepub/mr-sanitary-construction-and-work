@@ -1,0 +1,52 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-15T21:41:46.637Z",
+  "summary": "Implemented a configurable public site URL via VITE_PUBLIC_SITE_URL with runtime fallback, and added dynamic canonical/OG URL generation in frontend/index.html plus a new domain configuration doc. However, the diff does not provide evidence of a full frontend audit to remove/replace all hard-coded domain/host references (REQ-2). Also includes some unrequested changes (notably backend domain-change comments and project_state bookkeeping).",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+      "reason": "The diff shows the new site URL config module and index.html metadata handling, but does not show changes across the broader frontend codebase to remove/replace any existing hard-coded domain/host references. With only Footer.tsx shown (and truncated) and no other component diffs, there isn’t sufficient evidence that an audit/replacement was completed.",
+      "evidence": [
+        "frontend/src/components/marketing/Footer.tsx (truncated)",
+        "frontend/index.html",
+        "frontend/src/config/siteUrl.ts",
+        "Diff summary indicates only 5 modified files total"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Backend guidance/comments for changing site domain via a deployment config (e.g., dfx.json) added to backend/main.mo.",
+      "reason": "The BuildRequest focuses on frontend configurability and documentation; it does not request backend code changes. The added backend comment is also inconsistent with the introduced VITE_PUBLIC_SITE_URL approach (frontend env var).",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Project tracking/state updates in project_state.json (new_feature_requests entries).",
+      "reason": "Not requested as part of the domain configurability feature; appears to be internal bookkeeping rather than an implementation requirement.",
+      "evidence": [
+        "project_state.json"
+      ]
+    },
+    {
+      "description": "Added/updated frontend-file-summaries.txt containing broad claims about UI/animation/section enhancements.",
+      "reason": "Not requested by the BuildRequest; the file appears to document unrelated UI work and is not part of the domain-change requirements.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/DOMAIN_CONFIGURATION.md",
+    "frontend/index.html",
+    "frontend/src/components/marketing/Footer.tsx",
+    "frontend/src/config/siteUrl.ts",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-15T21:41:46.640Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Add a single configurable source of truth for the website’s public domain (site URL) so the domain can be changed without editing multiple files, and use it wherever the app needs an absolute domain value (e.g., SEO/share metadata).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/config/siteUrl.ts",
+          "frontend/index.html"
+        ],
+        "matchedFiles": [
+          "frontend/src/config/siteUrl.ts",
+          "frontend/index.html"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/marketing/Footer.tsx",
+          "frontend/src/components/marketing/Header.tsx",
+          "frontend/src/components/marketing/HeroSection.tsx",
+          "frontend/src/components/marketing/AboutSection.tsx",
+          "frontend/src/components/marketing/ServicesSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/marketing/Footer.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add brief developer documentation (README or inline comments) describing exactly how to change the site domain for deployment, including where the value is set and what it affects.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/DOMAIN_CONFIGURATION.md"
+        ],
+        "matchedFiles": [
+          "frontend/DOMAIN_CONFIGURATION.md"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/DOMAIN_CONFIGURATION.md",
+    "frontend/index.html",
+    "frontend/src/components/marketing/Footer.tsx",
+    "frontend/src/config/siteUrl.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

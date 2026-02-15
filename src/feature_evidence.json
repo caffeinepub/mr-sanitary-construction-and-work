@@ -1,0 +1,60 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-single-configurable-source-of-truth-for-the-website-s-public-domain-site-url-so-the-domain-can-be-changed-without-editing-multiple-files-and-use-it-wherever-the-app-needs-an-absolute-domain-value-e-g-seo-share-metadata",
+      "featureTitle": "Add a single configurable source of truth for the website’s public domain (site URL) so the domain can be changed without editing multiple files, and use it wherever the app needs an absolute domain value (e.g., SEO/share metadata).",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/config/siteUrl.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-audit-the-frontend-for-any-hard-coded-domain-host-references-and-replace-them-with-relative-urls-or-the-new-domain-configuration-so-changing-the-domain-does-not-require-code-changes-in-multiple-components",
+      "featureTitle": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+      "files": [
+        "frontend/src/components/marketing/Footer.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-brief-developer-documentation-readme-or-inline-comments-describing-exactly-how-to-change-the-site-domain-for-deployment-including-where-the-value-is-set-and-what-it-affects",
+      "featureTitle": "Add brief developer documentation (README or inline comments) describing exactly how to change the site domain for deployment, including where the value is set and what it affects.",
+      "files": [
+        "frontend/DOMAIN_CONFIGURATION.md"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

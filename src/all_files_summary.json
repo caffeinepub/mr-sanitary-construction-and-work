@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Contains deployment comment instructions for changing the site domain and an empty actor.",
+  "feature_evidence.json": "Feature evidence report mapping domain‑config changes to affected files, components, and test IDs.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing the purpose of various frontend files and components.",
+  "frontend/DOMAIN_CONFIGURATION.md": "Explains how to configure the site domain using the VITE_PUBLIC_SITE_URL environment variable.",
+  "frontend/index.css": "Defines global Tailwind-based styles, design tokens, and dark‑mode variables for the app.",
+  "frontend/index.html": "HTML entry point with SEO metadata and script that sets canonical and OG URLs based on configured site origin.",
+  "frontend/src/App.tsx": "Renders the main page structure containing Header, Hero, Services, About, and Footer sections.",
+  "frontend/src/components/marketing/AboutSection.tsx": "Animated About section with company overview text, image, and value list items.",
+  "frontend/src/components/marketing/Footer.tsx": "Footer with company info, quick links, contact details, animations, and hostname‑based UTM tracking.",
+  "frontend/src/components/marketing/Header.tsx": "Scrollable header with logo, navigation links, and responsive mobile menu behavior.",
+  "frontend/src/components/marketing/HeroSection.tsx": "Hero section with background image, animated reveals, CTA buttons, and stats, including smooth scroll behavior.",
+  "frontend/src/components/marketing/SectionReveal.tsx": "Wrapper that animates children into view once using an IntersectionObserver.",
+  "frontend/src/components/marketing/ServicesSection.tsx": "Services grid with icons and descriptions, using SectionReveal for animated entry and textured background.",
+  "frontend/src/config/siteUrl.ts": "Utility functions for resolving the site's public URL and building absolute URLs from environment config.",
+  "frontend/src/hooks/useActor.ts": "React hook that initializes an authenticated or anonymous backend actor and refreshes dependent queries on change.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Context and provider managing Internet Identity authentication, state, and login flows.",
+  "frontend/src/hooks/useInViewOnce.ts": "Hook that tracks when an element enters the viewport once using IntersectionObserver.",
+  "frontend/src/index.css": "Global Tailwind-based styles, color variables, typography, animations, and accessibility-focused adjustments.",
+  "frontend/src/main.tsx": "App entry point setting up React Query, Internet Identity provider, and rendering the root component.",
+  "frontend/tailwind.config.js": "Tailwind configuration defining theme extensions, custom colors, typography, animations, and plugin usage.",
+  "project_state.json": "JSON file describing the project’s current state, existing features, and pending feature requests related to domain configuration."
+}
