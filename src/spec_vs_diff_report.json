@@ -1,51 +1,58 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T21:41:46.637Z",
-  "summary": "Implemented a configurable public site URL via VITE_PUBLIC_SITE_URL with runtime fallback, and added dynamic canonical/OG URL generation in frontend/index.html plus a new domain configuration doc. However, the diff does not provide evidence of a full frontend audit to remove/replace all hard-coded domain/host references (REQ-2). Also includes some unrequested changes (notably backend domain-change comments and project_state bookkeeping).",
+  "generatedAt": "2026-02-16T00:01:42.066Z",
+  "summary": "REQ-1 and REQ-3 appear implemented via dynamic canonical/og:url generation from VITE_PUBLIC_SITE_URL with origin normalization and an added .env.example. REQ-2 documentation changes are present but the provided diff content is truncated before showing required details (trailing-slash handling and verification steps). REQ-4 backend guidance was updated to mention VITE_PUBLIC_SITE_URL, but the example value format shown conflicts with the frontend’s “full URL with protocol” requirement.",
   "missing_requirements": [
     {
       "id": "REQ-2",
-      "requirement": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
-      "reason": "The diff shows the new site URL config module and index.html metadata handling, but does not show changes across the broader frontend codebase to remove/replace any existing hard-coded domain/host references. With only Footer.tsx shown (and truncated) and no other component diffs, there isn’t sufficient evidence that an audit/replacement was completed.",
+      "requirement": "Update frontend/DOMAIN_CONFIGURATION.md with explicit step-by-step instructions including accepted formats, trailing slash handling, and verification steps in browser.",
+      "reason": "The diff snippet for frontend/DOMAIN_CONFIGURATION.md is truncated mid-section and does not show trailing-slash handling guidance or browser/devtools verification steps, so the acceptance criteria cannot be confirmed from the provided evidence.",
       "evidence": [
-        "frontend/src/components/marketing/Footer.tsx (truncated)",
-        "frontend/index.html",
-        "frontend/src/config/siteUrl.ts",
-        "Diff summary indicates only 5 modified files total"
+        "frontend/DOMAIN_CONFIGURATION.md (truncated in diff summary)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Align backend deployment guidance comments in backend/main.mo with the frontend domain configuration approach (reference VITE_PUBLIC_SITE_URL with accurate, concrete instructions; no misleading placeholders).",
+      "reason": "backend/main.mo references VITE_PUBLIC_SITE_URL but provides an example value without protocol (\"app.yourdomain.com\"), which conflicts with the frontend requirement/documentation that the variable be a full URL with protocol (e.g., https://example.com).",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/.env.example",
+        "frontend/DOMAIN_CONFIGURATION.md (states format: full URL with protocol)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Backend guidance/comments for changing site domain via a deployment config (e.g., dfx.json) added to backend/main.mo.",
-      "reason": "The BuildRequest focuses on frontend configurability and documentation; it does not request backend code changes. The added backend comment is also inconsistent with the introduced VITE_PUBLIC_SITE_URL approach (frontend env var).",
+      "description": "Significant UI/marketing/animation/style enhancements (Header/Hero/Services/About/Footer components, new animations, Tailwind config extensions, new images/copy changes) unrelated to domain/origin configuration.",
+      "reason": "BuildRequest non-goals explicitly exclude adding new product features unrelated to domain/origin configuration; these changes appear unrelated based on the diff summary list.",
       "evidence": [
-        "backend/main.mo"
+        "frontend-file-summaries.txt (entries for frontend/src/index.css, frontend/tailwind.config.js, frontend/src/App.tsx, frontend/src/components/marketing/*, frontend/src/hooks/useInViewOnce.ts, frontend/src/components/marketing/SectionReveal.tsx)"
       ]
     },
     {
-      "description": "Project tracking/state updates in project_state.json (new_feature_requests entries).",
-      "reason": "Not requested as part of the domain configurability feature; appears to be internal bookkeeping rather than an implementation requirement.",
+      "description": "Added/updated project tracking metadata in project_state.json.",
+      "reason": "Not requested by any requirement; BuildRequest focuses on domain configuration, docs, and backend comment alignment.",
       "evidence": [
         "project_state.json"
       ]
     },
     {
-      "description": "Added/updated frontend-file-summaries.txt containing broad claims about UI/animation/section enhancements.",
-      "reason": "Not requested by the BuildRequest; the file appears to document unrelated UI work and is not part of the domain-change requirements.",
+      "description": "Added frontend/src/config/siteUrl.ts helper module (beyond canonical/og:url behavior in index.html).",
+      "reason": "Not explicitly requested; REQ-1 only requires canonical/og:url be controlled by VITE_PUBLIC_SITE_URL with fallback behavior. This helper may be useful but is additional scope beyond stated requirements.",
       "evidence": [
-        "frontend-file-summaries.txt"
+        "frontend/src/config/siteUrl.ts"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.72,
   "changed_files": [
     "backend/main.mo",
     "frontend-file-summaries.txt",
+    "frontend/.env.example",
     "frontend/DOMAIN_CONFIGURATION.md",
     "frontend/index.html",
-    "frontend/src/components/marketing/Footer.tsx",
     "frontend/src/config/siteUrl.ts",
     "project_state.json"
   ]

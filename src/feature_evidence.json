@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-single-configurable-source-of-truth-for-the-website-s-public-domain-site-url-so-the-domain-can-be-changed-without-editing-multiple-files-and-use-it-wherever-the-app-needs-an-absolute-domain-value-e-g-seo-share-metadata",
-      "featureTitle": "Add a single configurable source of truth for the website’s public domain (site URL) so the domain can be changed without editing multiple files, and use it wherever the app needs an absolute domain value (e.g., SEO/share metadata).",
+      "featureId": "feature-provide-a-clear-single-process-to-change-the-deployed-site-domain-by-configuring-vite-public-site-url-at-build-time-and-ensure-this-is-the-only-required-change-to-affect-canonical-og-urls",
+      "featureTitle": "Provide a clear, single process to change the deployed site domain by configuring `VITE_PUBLIC_SITE_URL` at build time, and ensure this is the only required change to affect canonical/OG URLs.",
       "files": [
         "frontend/index.html",
         "frontend/src/config/siteUrl.ts"
@@ -21,10 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-audit-the-frontend-for-any-hard-coded-domain-host-references-and-replace-them-with-relative-urls-or-the-new-domain-configuration-so-changing-the-domain-does-not-require-code-changes-in-multiple-components",
-      "featureTitle": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+      "featureId": "feature-complete-and-or-update-frontend-domain-configuration-md-to-include-explicit-step-by-step-instructions-for-changing-the-domain-where-to-set-vite-public-site-url-accepted-formats-trailing-slash-handling-and-how-to-verify-the-change-in-the-browser",
+      "featureTitle": "Complete and/or update `frontend/DOMAIN_CONFIGURATION.md` to include explicit, step-by-step instructions for changing the domain (where to set `VITE_PUBLIC_SITE_URL`, accepted formats, trailing slash handling, and how to verify the change in the browser).",
       "files": [
-        "frontend/src/components/marketing/Footer.tsx"
+        "frontend/DOMAIN_CONFIGURATION.md"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -39,10 +39,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-brief-developer-documentation-readme-or-inline-comments-describing-exactly-how-to-change-the-site-domain-for-deployment-including-where-the-value-is-set-and-what-it-affects",
-      "featureTitle": "Add brief developer documentation (README or inline comments) describing exactly how to change the site domain for deployment, including where the value is set and what it affects.",
+      "featureId": "feature-add-an-example-environment-configuration-file-for-developers-e-g-a-checked-in-example-file-that-documents-vite-public-site-url-and-its-expected-value-format",
+      "featureTitle": "Add an example environment configuration file for developers (e.g., a checked-in example file) that documents `VITE_PUBLIC_SITE_URL` and its expected value format.",
       "files": [
-        "frontend/DOMAIN_CONFIGURATION.md"
+        "frontend/.env.example"
       ],
       "components": [
         "core-infrastructure@1.0.2",

@@ -1,76 +1,53 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Single-source configurable public site domain (frontend)",
+  "title": "Domain configuration via VITE_PUBLIC_SITE_URL (canonical + OG) and developer documentation",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Introduce a single configurable source of truth for the public site URL and use it for absolute-URL metadata with safe fallbacks.",
+      "summary": "Use VITE_PUBLIC_SITE_URL as the single build-time switch for canonical and og:url origin with safe normalization and runtime fallback.",
       "acceptanceCriteria": [
-        "A developer can set the site’s public domain in one place (e.g., an env var or a small config module) without hunting for hard-coded domains.",
-        "Any absolute-URL metadata (canonical/OG URL if present or added) uses the configured domain.",
-        "When no domain is configured, the site still works correctly (e.g., falls back to current origin or uses relative URLs)."
+        "When `VITE_PUBLIC_SITE_URL` is set (e.g., `https://example.com`), the app sets the canonical URL and `og:url` using that origin (without trailing slash issues).",
+        "When `VITE_PUBLIC_SITE_URL` is not set, canonical and `og:url` fall back to `window.location.origin`."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/config/siteUrl.ts",
-          "operation": "create",
-          "description": "Create a small config module that reads a single public site URL setting (e.g., from a build-time env var) and provides helpers like `getPublicSiteOrigin()` and `toAbsoluteUrl(path)` with fallback to `window.location.origin`. Include brief inline comments describing intended usage."
-        },
-        {
           "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Add/adjust SEO/share metadata to use the configured public domain: include canonical and OG URL (and any required supporting tags) sourced from the single configuration value, with a runtime fallback to the current origin when the value is not set."
+          "description": "Update the inline SEO script that sets canonical and `og:url` to (1) treat `VITE_PUBLIC_SITE_URL` as optional, (2) normalize it to a pure origin using URL parsing when present (ensuring no trailing slash/path/query issues), and (3) fall back to `window.location.origin` when unset or invalid, then append `window.location.pathname` to form canonical/og URLs."
+        },
+        {
+          "path": "frontend/src/config/siteUrl.ts",
+          "operation": "modify",
+          "description": "Align/clarify the site URL utility behavior and comments so they match the canonical/OG URL rules: `VITE_PUBLIC_SITE_URL` is interpreted as the public origin at build time, normalized safely, and falls back to `window.location.origin` when missing/invalid."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Audit and refactor hard-coded domain/host references to use relative URLs or the new domain configuration.",
+      "summary": "Update DOMAIN_CONFIGURATION.md with explicit steps for setting VITE_PUBLIC_SITE_URL and verifying canonical/OG output.",
       "acceptanceCriteria": [
-        "No user-facing links or asset URLs depend on a specific hard-coded domain.",
-        "All internal navigation and static asset references continue to work after changing the configured domain."
+        "`frontend/DOMAIN_CONFIGURATION.md` contains actionable steps showing exactly how to set `VITE_PUBLIC_SITE_URL` for production builds and how to confirm the canonical/OG URLs in the page source or devtools."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/marketing/Footer.tsx",
+          "path": "frontend/DOMAIN_CONFIGURATION.md",
           "operation": "modify",
-          "description": "Replace any domain/host-dependent link construction with the new site URL helpers (e.g., use configured hostname/origin where appropriate, otherwise rely on relative URLs/current origin) so the component does not implicitly depend on a specific deployed domain."
-        },
-        {
-          "path": "frontend/src/components/marketing/Header.tsx",
-          "operation": "modify",
-          "description": "Audit for any hard-coded host/domain usage (including link targets) and refactor to use relative URLs or the shared site URL configuration helpers as appropriate."
-        },
-        {
-          "path": "frontend/src/components/marketing/HeroSection.tsx",
-          "operation": "modify",
-          "description": "Audit for any hard-coded host/domain usage (including link targets) and refactor to use relative URLs or the shared site URL configuration helpers as appropriate."
-        },
-        {
-          "path": "frontend/src/components/marketing/AboutSection.tsx",
-          "operation": "modify",
-          "description": "Audit for any hard-coded host/domain usage (including link targets) and refactor to use relative URLs or the shared site URL configuration helpers as appropriate."
-        },
-        {
-          "path": "frontend/src/components/marketing/ServicesSection.tsx",
-          "operation": "modify",
-          "description": "Audit for any hard-coded host/domain usage (including icon/asset references if any are absolute) and refactor to use relative URLs or the shared site URL configuration helpers as appropriate."
+          "description": "Complete the domain configuration guide with step-by-step instructions: where to set `VITE_PUBLIC_SITE_URL` (build-time env), accepted formats (full URL with protocol), trailing slash handling/normalization behavior, and a verification checklist (view page source/devtools Elements to confirm the generated canonical link and `og:url`)."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add developer documentation describing how to change the deployed site domain and verify it is applied.",
+      "summary": "Add a checked-in example environment file documenting VITE_PUBLIC_SITE_URL format and purpose.",
       "acceptanceCriteria": [
-        "Documentation clearly states where to set the domain and how to verify it is applied.",
-        "Documentation is written in English."
+        "A new example env file exists in the frontend repo (e.g., `.env.example`) that includes `VITE_PUBLIC_SITE_URL=https://your-domain.com` and a short comment describing what it controls."
       ],
       "file_operations": [
         {
-          "path": "frontend/DOMAIN_CONFIGURATION.md",
+          "path": "frontend/.env.example",
           "operation": "create",
-          "description": "Document how to set the public site domain in one place (the chosen env var/config module), what the value affects (canonical/OG URL and any absolute URL generation), and how to verify behavior with and without the value configured (fallback to current origin)."
+          "description": "Create an example environment configuration file that includes `VITE_PUBLIC_SITE_URL=https://your-domain.com` plus a short comment explaining it controls the public origin used for canonical and `og:url` generation."
         }
       ]
     }

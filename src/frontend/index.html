@@ -17,21 +17,35 @@
         <!-- Dynamic canonical and OG URL will be set by script below -->
         <script>
           (function() {
+            // VITE_PUBLIC_SITE_URL is optional; when set, it provides the public origin for canonical/OG URLs
             const configuredUrl = '%VITE_PUBLIC_SITE_URL%';
-            const siteOrigin = configuredUrl && configuredUrl !== '%VITE_PUBLIC_SITE_URL%' 
-              ? configuredUrl.replace(/\/$/, '')
-              : window.location.origin;
+            let siteOrigin = window.location.origin; // Default fallback
             
-            // Set canonical URL
+            // If VITE_PUBLIC_SITE_URL is set and valid, normalize it to a pure origin
+            if (configuredUrl && configuredUrl !== '%VITE_PUBLIC_SITE_URL%') {
+              try {
+                const parsed = new URL(configuredUrl);
+                // Extract only the origin (protocol + hostname + port), no path/query/hash
+                siteOrigin = parsed.origin;
+              } catch (e) {
+                // Invalid URL format, fall back to window.location.origin
+                console.warn('Invalid VITE_PUBLIC_SITE_URL format, using current origin as fallback');
+              }
+            }
+            
+            // Build the full canonical URL by appending the current pathname
+            const canonicalUrl = siteOrigin + window.location.pathname;
+            
+            // Set canonical link
             const canonical = document.createElement('link');
             canonical.rel = 'canonical';
-            canonical.href = siteOrigin + window.location.pathname;
+            canonical.href = canonicalUrl;
             document.head.appendChild(canonical);
             
-            // Set OG URL
+            // Set og:url meta tag
             const ogUrl = document.createElement('meta');
             ogUrl.setAttribute('property', 'og:url');
-            ogUrl.content = siteOrigin + window.location.pathname;
+            ogUrl.content = canonicalUrl;
             document.head.appendChild(ogUrl);
           })();
         </script>

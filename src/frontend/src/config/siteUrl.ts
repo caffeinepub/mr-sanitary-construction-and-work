@@ -1,27 +1,32 @@
 /**
  * Single source of truth for the public site URL configuration.
  * 
- * Set VITE_PUBLIC_SITE_URL environment variable at build time to configure
- * the canonical domain for SEO and sharing metadata.
+ * VITE_PUBLIC_SITE_URL is an optional build-time environment variable that specifies
+ * the public origin (e.g., https://mrsanitary.com) used for canonical URLs and og:url meta tags.
+ * 
+ * When not set or invalid, the application falls back to window.location.origin at runtime.
  * 
  * Example: VITE_PUBLIC_SITE_URL=https://mrsanitary.com
- * 
- * When not set, falls back to the current origin at runtime.
  */
 
 const CONFIGURED_SITE_URL = import.meta.env.VITE_PUBLIC_SITE_URL as string | undefined;
 
 /**
  * Get the public site origin (protocol + hostname + port if non-standard).
- * Falls back to window.location.origin when no configured URL is set.
+ * 
+ * Returns the configured VITE_PUBLIC_SITE_URL origin when set and valid,
+ * otherwise falls back to window.location.origin.
+ * 
+ * This matches the behavior of the canonical/OG URL generation in index.html.
  */
 export function getPublicSiteOrigin(): string {
   if (CONFIGURED_SITE_URL) {
     try {
       const url = new URL(CONFIGURED_SITE_URL);
+      // Extract only the origin (no trailing slash, path, query, or hash)
       return url.origin;
     } catch {
-      console.warn('Invalid VITE_PUBLIC_SITE_URL, falling back to current origin');
+      console.warn('Invalid VITE_PUBLIC_SITE_URL format, falling back to current origin');
     }
   }
   return typeof window !== 'undefined' ? window.location.origin : '';

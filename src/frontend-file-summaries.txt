@@ -1,7 +1,7 @@
 {
   "frontend/src/index.css": "Global styles with warm OKLCH construction palette, custom animations (subtle-zoom, gradient-shift, slide-down), reduced-motion accessibility support, smooth transitions, and enhanced focus-visible states.",
   "frontend/tailwind.config.js": "Extended Tailwind configuration with additional border radius utilities (xl, 2xl, 3xl), new shadow variants (glow), enhanced keyframes/animations (fade-in-up, slide-in-right, scale-in, shimmer), and custom timing functions for modern micro-interactions.",
-  "frontend/index.html": "HTML entry point with SEO meta tags and inline script that dynamically sets canonical and OG URL using configured site URL or current origin fallback.",
+  "frontend/index.html": "HTML entry point with improved SEO script that safely normalizes VITE_PUBLIC_SITE_URL to a pure origin (handling invalid formats with fallback to window.location.origin) and dynamically sets canonical and og:url meta tags.",
   "frontend/src/App.tsx": "Main app component rendering single-page marketing layout with Header, Hero, Services, About, and Footer sections.",
   "frontend/src/components/marketing/Header.tsx": "Modern responsive header with enhanced micro-interactions, smooth scroll navigation, mobile menu, sticky behavior with backdrop blur, and improved hover/focus states for all interactive elements.",
   "frontend/src/components/marketing/HeroSection.tsx": "Hero section with modern background image (mr-sanitary-hero-modern.png), gradient overlays, staggered entrance animations via SectionReveal, enhanced CTA buttons with hover effects, and animated stats display.",
@@ -10,6 +10,7 @@
   "frontend/src/components/marketing/Footer.tsx": "Modern footer with gradient background, staggered entrance animations, enhanced link hover effects, contact information, and caffeine.ai attribution using dynamic hostname-based UTM tracking.",
   "frontend/src/hooks/useInViewOnce.ts": "Custom React hook using IntersectionObserver to detect when an element enters the viewport once, enabling one-time entrance animations with configurable threshold and root margin.",
   "frontend/src/components/marketing/SectionReveal.tsx": "Reusable wrapper component that applies fade-in and slide-up entrance animations to children when they enter the viewport, with optional delay and reduced-motion support.",
-  "frontend/src/config/siteUrl.ts": "Configuration module providing single source of truth for public site URL with helpers to get origin and convert relative paths to absolute URLs, falling back to current origin when not configured.",
-  "frontend/DOMAIN_CONFIGURATION.md": "Developer documentation explaining how to set the public site domain via VITE_PUBLIC_SITE_URL environment variable, what it affects, fallback behavior, and verification steps."
+  "frontend/src/config/siteUrl.ts": "Configuration module providing single source of truth for public site URL with helpers to get origin and convert relative paths to absolute URLs, with improved normalization matching the canonical/OG URL behavior and clear fallback documentation.",
+  "frontend/DOMAIN_CONFIGURATION.md": "Complete developer documentation with step-by-step instructions for setting VITE_PUBLIC_SITE_URL via .env file or environment variables, format requirements, what it affects, fallback behavior, verification steps using browser tools and social media debuggers, and troubleshooting guide.",
+  "frontend/.env.example": "Example environment configuration file documenting VITE_PUBLIC_SITE_URL format, purpose (controls canonical and og:url generation), and fallback behavior when not set."
 }

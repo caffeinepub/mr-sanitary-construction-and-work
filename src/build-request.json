@@ -1,70 +1,82 @@
 {
   "kind": "build_request",
-  "title": "Support changing the deployed site domain",
+  "title": "Update and document site domain configuration",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add a single configurable source of truth for the website’s public domain (site URL) so the domain can be changed without editing multiple files, and use it wherever the app needs an absolute domain value (e.g., SEO/share metadata).",
+      "text": "Provide a clear, single process to change the deployed site domain by configuring `VITE_PUBLIC_SITE_URL` at build time, and ensure this is the only required change to affect canonical/OG URLs.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages"
         ],
         "quotes": [
-          "Change domin"
+          "I want to change domin"
         ]
       },
       "acceptanceCriteria": [
-        "A developer can set the site’s public domain in one place (e.g., an env var or a small config module) without hunting for hard-coded domains.",
-        "Any absolute-URL metadata (canonical/OG URL if present or added) uses the configured domain.",
-        "When no domain is configured, the site still works correctly (e.g., falls back to current origin or uses relative URLs)."
+        "When `VITE_PUBLIC_SITE_URL` is set (e.g., `https://example.com`), the app sets the canonical URL and `og:url` using that origin (without trailing slash issues).",
+        "When `VITE_PUBLIC_SITE_URL` is not set, canonical and `og:url` fall back to `window.location.origin`."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Audit the frontend for any hard-coded domain/host references and replace them with relative URLs or the new domain configuration so changing the domain does not require code changes in multiple components.",
+      "text": "Complete and/or update `frontend/DOMAIN_CONFIGURATION.md` to include explicit, step-by-step instructions for changing the domain (where to set `VITE_PUBLIC_SITE_URL`, accepted formats, trailing slash handling, and how to verify the change in the browser).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages"
         ],
         "quotes": [
-          "Change domin"
+          "I want to change domin"
         ]
       },
       "acceptanceCriteria": [
-        "No user-facing links or asset URLs depend on a specific hard-coded domain.",
-        "All internal navigation and static asset references continue to work after changing the configured domain."
+        "`frontend/DOMAIN_CONFIGURATION.md` contains actionable steps showing exactly how to set `VITE_PUBLIC_SITE_URL` for production builds and how to confirm the canonical/OG URLs in the page source or devtools."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add brief developer documentation (README or inline comments) describing exactly how to change the site domain for deployment, including where the value is set and what it affects.",
-      "target": "unknown",
+      "text": "Add an example environment configuration file for developers (e.g., a checked-in example file) that documents `VITE_PUBLIC_SITE_URL` and its expected value format.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages"
         ],
         "quotes": [
-          "Change domin"
+          "I want to change domin"
         ]
       },
       "acceptanceCriteria": [
-        "Documentation clearly states where to set the domain and how to verify it is applied.",
-        "Documentation is written in English."
+        "A new example env file exists in the frontend repo (e.g., `.env.example`) that includes `VITE_PUBLIC_SITE_URL=https://your-domain.com` and a short comment describing what it controls."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Align backend deployment guidance comments in `backend/main.mo` with the frontend domain configuration approach so instructions are not contradictory (i.e., reference `VITE_PUBLIC_SITE_URL` and avoid placeholders like `<path-to-deployment-config>` / `<domain-entry>` unless they are real file paths/keys present in the repo).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "I want to change domin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "`backend/main.mo` contains accurate, concrete instructions that match how the frontend actually derives the public site origin (via `VITE_PUBLIC_SITE_URL`).",
+        "No misleading placeholder deployment instructions remain unless the referenced config file/key exists in the repository."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/components/ui (read-only UI components).",
-    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
-    "Backend must remain a single Motoko actor in backend/main.mo; only add a migration file if persistent state changes are required."
+    "Do not edit files under `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, or anything in `frontend/src/components/ui` (compose them instead).",
+    "Backend must remain a single Motoko actor in `backend/main.mo`; add `backend/migration.mo` only if state schema changes are required (not expected for domain configuration)."
   ],
   "nonGoals": [
-    "Registering or purchasing a domain name.",
-    "Configuring DNS records, SSL certificates, or external hosting/CDN services outside the codebase.",
-    "Implementing a custom backend for domain management."
+    "Purchasing/configuring a custom domain, DNS records, SSL certificates, or registrar settings.",
+    "Adding new product features unrelated to domain/origin configuration."
   ],
   "imageRequirements": {
     "required": [],
